@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog Admin</title>
+
+    <link rel="stylesheet" href="../ad123/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../ad123/plugins/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../ad123/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../ad123/dist/css/admin.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- header -->
+        <nav th:replace="fragments/layout :: header"></nav>
+
+        <!-- sidebar -->
+        <aside th:replace="fragments/layout :: sidebar"></aside>
+        <br>
+
+        <!-- main-content -->
+        <div th:replace="fragments/mainListUser"></div>
+    </div>
+
+    <script src="../ad123/plugins/jquery/jquery.min.js"></script>
+    <script src="../ad123/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../ad123/dist/js/adminlte.min.js"></script>
+    <script>
+        $('.btn-toggle').click(function () {
+            $(this).find('.btn').toggleClass('active');
+
+            if ($(this).find('.btn-primary').length > 0) {
+                $(this).find('.btn').toggleClass('btn-primary');
+            }
+
+            $(this).find('.btn').toggleClass('btn-default');
+
+        });
+        $('.btn-toggle .btn').click(function () {
+        	var user_id = $(this).attr('id'), is_active;
+        	if(!$(this).hasClass('active')){
+        		if($(this).html() == "ON"){
+        			is_active = 1;
+        		}else{
+        			is_active = 0;
+        		}
+        	}else{
+        		if($(this).html() == "ON"){
+        			is_active = 0;
+        		}else{
+        			is_active = 1;
+        		}
+        	}
+        	$.ajax({
+        		url: 'http://localhost:8080/activeOrDeactiveUser',
+        		data: {
+        			'user_id': user_id,
+        			'is_active': is_active,
+        		},
+        		type: 'post',
+        		success: function(){
+        			console.log('Update user successfully!');
+        		}
+        	});
+        });
+        
+		$('.btn-delete').click(function (e) {
+			e.preventDefault();
+			if(confirm('Are you sure to want to delete?')){
+				window.location.href = $(this).attr('href');
+			}
+		});
+    </script>
+</body>
+
+</html>

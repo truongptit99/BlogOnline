@@ -1,0 +1,63 @@
+<div class="content-wrapper">
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<section class="content">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="card card-primary">
+												<div class="card-header">
+													<h3 class="card-title">Edit Post</h3>
+												</div>
+												<form id="form-add" action="/user/createPost" method="POST" enctype="multipart/form-data" th:object="${post}">
+													<input type="hidden" th:field="*{id}">
+													<div class="card-body">
+														<div class="form-group">
+															<label>Category <span class="text-danger">*</span></label>
+															<select name="cate_id" class="form-control">
+																<th:block th:each="cate : ${listCate}">
+																	<option th:if="${post.cate} != null and ${cate.id} == ${post.cate.id}" selected th:value="${cate.id}" th:text="${cate.name}"></option>
+																	<option th:value="${cate.id}" th:text="${cate.name}"></option>
+																</th:block>
+															</select>
+														</div>
+														<div class="form-group">
+															<label>Title <span class="text-danger">*</span></label>
+															<input type="text" th:field="*{title}" class="form-control">
+															<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger font-italic"></span>
+														</div>
+														<div class="form-group">
+															<img th:if="${post.img} != '' and ${post.img} != null" th:src="@{../uploads/{img}(img=${post.img})}" style="width: 50%; display: block;" alt="blog images">
+															<label>Image </label>
+															<input type="file" name="image" class="form-control">
+															<input type="hidden" th:field="*{img}">
+															<span th:text="${invalid_imgext}" class="text-danger font-italic"></span>
+														</div>
+														<div class="form-group">
+															<label>Content <span class="text-danger">*</span></label>
+															<textarea id="summernote" th:field="*{content}"></textarea>
+															<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger font-italic"></span>
+														</div>
+													</div>
+													<input type="hidden" name="email" th:value="${post.user.email}">
+													<input type="hidden" name="createdAt" th:value="${#dates.format(post.createdAt, 'dd-MM-yyyy HH:mm:ss.SSS')}">
+													<div class="card-footer">
+														<button type="submit" class="btn btn-primary">Save</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

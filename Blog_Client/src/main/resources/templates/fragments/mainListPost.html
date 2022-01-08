@@ -1,0 +1,45 @@
+<div class="content-wrapper">
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<h2 th:if="${listPostByCate}" th:text="${listPostByCate}"></h2>
+							<hr>
+							<table class="table table-hover table-bordered">
+								<thead class="thead-dark">
+									<tr>
+										<th class="text-center">Number</th>
+										<th class="text-center">Image</th>
+										<th class="text-center">Title</th>
+										<th class="text-center">Author</th>
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="post, iStat : ${listPost}">
+										<td class="text-center" scope="row" th:text="${iStat.index} + 1"></td>
+										<td class="text-center">
+											<img th:src="@{../uploads/{img}(img=${post.img})}" style="width: 100px; height: 50px;" alt="blog images">
+										</td>
+										<td th:text="${post.title}"></td>
+										<td th:text="${post.user.email}"></td>
+										<td class="text-center">
+											<a th:href="@{/admin/showEditPostForm?id={id}(id=${post.id})}" class="btn btn-sm btn-success">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a th:href="@{/admin/deletePost?id={id}(id=${post.id})}" class="btn btn-sm btn-danger btn-delete">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

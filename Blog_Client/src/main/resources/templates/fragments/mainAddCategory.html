@@ -1,0 +1,51 @@
+<div class="content-wrapper">
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<section class="content">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="card card-primary">
+												<div class="card-header">
+													<h3 th:if="${cate.id} == null" class="card-title">New Category</h3>
+													<h3 th:if="${cate.id} != null" class="card-title">Edit Category</h3>
+												</div>
+												<form id="form-add" action="/admin/addCategory" method="POST" th:object="${cate}">
+													<input type="hidden" th:field="*{id}">
+													<div class="card-body">
+														<div class="form-group">
+															<label for="inputName">Name</label><span class="text-danger"> *</span>
+															<input type="text" th:field="*{name}" class="form-control" id="inputName"
+																placeholder="Enter name"
+																aria-invalid="false">
+															<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger font-italic"></span>
+															<span th:text="${cate_exist}" class="text-danger font-italic"></span>
+														</div>
+														<div class="form-group">
+															<label for="inputDes">Description</label>
+															<input type="text" th:field="*{des}" class="form-control" id="inputDes"
+																placeholder="Enter description"
+																aria-invalid="false">
+														</div>
+														<input type="hidden" name="createdAt" th:value="${#dates.format(cate.createdAt, 'dd-MM-yyyy HH:mm:ss.SSS')}">
+													</div>
+													<div class="card-footer">
+														<button type="submit" class="btn btn-primary">Save</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

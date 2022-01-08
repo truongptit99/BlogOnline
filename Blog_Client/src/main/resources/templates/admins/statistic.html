@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog Admin</title>
+
+<link rel="stylesheet"
+	href="../ad123/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet"
+	href="../ad123/plugins/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet" href="../ad123/dist/css/adminlte.min.css">
+<link rel="stylesheet" href="../ad123/dist/css/admin.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+		<!-- header -->
+		<nav th:replace="fragments/layout :: header"></nav>
+
+		<!-- sidebar -->
+		<aside th:replace="fragments/layout :: sidebar"></aside>
+		<br>
+
+		<!-- main-content -->
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="card card-primary">
+										<div class="card-header">Top Category By Post</div>
+										<div class="card-body">
+											<table class="table table-hover table-bordered">
+												<thead class="thead-light">
+													<tr>
+														<th class="text-center">Number</th>
+														<th class="text-center">Category Name</th>
+														<th class="text-center">Number Of Post</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="cate, iStat : ${listCateSortByPost}">
+														<td class="text-center" scope="row"
+															th:text="${iStat.index} + 1"></td>
+														<td th:text="${cate.name}"></td>
+														<td class="text-center" th:text="${cate.listPost.size}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card card-primary">
+										<div class="card-header">Top User By Post</div>
+										<div class="card-body">
+											<table class="table table-hover table-bordered">
+												<thead class="thead-light">
+													<tr>
+														<th class="text-center">Number</th>
+														<th class="text-center">Email</th>
+														<th class="text-center">Number Of Post</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="user, iStat : ${listUserSortByPost}">
+														<td class="text-center" scope="row"
+															th:text="${iStat.index} + 1"></td>
+														<td th:text="${user.email}"></td>
+														<td th:text="${user.listPost.size}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card card-primary">
+										<div class="card-header">Top User By Comment</div>
+										<div class="card-body">
+											<table class="table table-hover table-bordered">
+												<thead class="thead-light">
+													<tr>
+														<th class="text-center">Number</th>
+														<th class="text-center">Email</th>
+														<th class="text-center">Number Of Comment</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="user, iStat : ${listUserSortByCmt}">
+														<td class="text-center" scope="row"
+															th:text="${iStat.index} + 1"></td>
+														<td th:text="${user.email}"></td>
+														<td th:text="${user.listCmt.size}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card card-primary">
+										<div class="card-header">Top Post By Comment</div>
+										<div class="card-body">
+											<table class="table table-hover table-bordered">
+												<thead class="thead-light">
+													<tr>
+														<th class="text-center">Number</th>
+														<th class="text-center">Title</th>
+														<th class="text-center">Number Of Comment</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="post, iStat : ${listPostSortByCmt}">
+														<td class="text-center" scope="row"
+															th:text="${iStat.index} + 1"></td>
+														<td th:text="${post.title}"></td>
+														<td th:text="${post.listCmt.size}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<script src="../ad123/plugins/jquery/jquery.min.js"></script>
+	<script src="../ad123/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../ad123/dist/js/adminlte.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<div class="content-wrapper">
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<a href="/admin/showAddCategoryForm" class="btn btn-outline-primary">Add new category</a>
+							<hr>
+							<table class="table table-hover table-bordered">
+								<thead class="thead-dark">
+									<tr>
+										<th class="text-center">Number</th>
+										<th class="text-center">Name</th>
+										<th class="text-center">Description</th>
+										<th class="text-center">List posts</th>
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cate, iStat : ${listCate}">
+										<td class="text-center" scope="row" th:text="${iStat.index} + 1"></td>
+										<td th:text="${cate.name}"></td>
+										<td th:text="${cate.des}"></td>
+										<td class="text-center">
+											<a th:href="@{/admin/findPostByCategory?cate_id={id}(id=${cate.id})}" class="btn btn-sm btn-info">View</a>
+										</td>
+										<td class="text-center">
+											<a th:href="@{/admin/editCategory?id={id}(id=${cate.id})}" class="btn btn-sm btn-success">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a th:href="@{/admin/deleteCategory?id={id}(id=${cate.id})}" class="btn btn-sm btn-danger btn-delete">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

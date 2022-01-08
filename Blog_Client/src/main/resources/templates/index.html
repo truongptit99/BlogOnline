@@ -1,0 +1,242 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+
+<!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/boighor-v2/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Aug 2018 23:58:34 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Blog Homepage</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" href="../images/favicon.ico">
+	<link rel="apple-touch-icon" href="../images/icon.png">
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/plugins.css">
+	<link rel="stylesheet" href="../style.css">
+
+	<!-- Cusom css -->
+   <link rel="stylesheet" href="../css/custom.css">
+
+	<!-- Modernizer js -->
+	<script src="../js/vendor/modernizr-3.5.0.min.js"></script>
+</head>
+<body>
+	<!--[if lte IE 9]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+	<![endif]-->
+
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+		
+		<!-- Header -->
+		<header id="wn__header" class="oth-page header__area header__absolute sticky__header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4 col-sm-4 col-7 col-lg-2">
+						<div class="logo">
+							<a href="/">
+								<img src="../images/logo/logo.png" alt="logo images">
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-7 d-none d-lg-block">
+						<nav class="mainmenu__nav">
+							<ul class="meninmenu d-flex justify-content-start">
+								<li class="drop with--one--item" th:if="${#request.userPrincipal} != null"><a th:href="@{/findPostByUser?email={email}(email=${#request.userPrincipal.name})}">My Posts</a></li>
+								<li class="drop with--one--item" th:if="${#request.userPrincipal} == null"><a href="/">Blog Online</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="col-md-8 col-sm-8 col-5 col-lg-3">
+						<ul class="header__sidebar__right d-flex justify-content-between align-items-center">
+							<li th:if="${#request.userPrincipal} == null"><a href="/login" class="text-white">Login</a></li>
+							<li th:if="${#request.userPrincipal} == null"><a href="/register" class="text-white">Register</a></li>
+							<li th:if="${#request.userPrincipal} != null" class="text-white">
+								<i class="fas fa-user"></i><span class="ml-1" th:text="${#request.userPrincipal.name}"></span>
+							</li>
+							<li th:if="${#request.userPrincipal} != null"><a href="/logout" class="text-white">Logout</a></li>
+						</ul>
+					</div>
+				</div>	
+			</div>		
+		</header>
+		<!-- //Header -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                        	<h2 class="bradcaump-title">Blog Page</h2>
+                            <nav class="bradcaump-content">
+                              <a class="breadcrumb_item" href="#">Home</a>
+                              <span class="brd-separetor">/</span>
+                              <span class="breadcrumb_item active">Blog</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start Blog Area -->
+        <div class="page-blog bg--white section-padding--lg blog-sidebar right-sidebar">
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-lg-9 col-12">
+        				<div class="blog-page">
+        					<div class="page__header d-flex justify-content-between">
+        						<h2 th:if="${listPostByCate}" th:text="${listPostByCate}"></h2>
+        						<h2 th:if="${listPostByUser}" th:text="${listPostByUser}"></h2>
+        						<h2 th:if="${listPostByCate} == null and ${listPostByUser} == null">Posts</h2>
+        						<div>
+									<a href="/user/showCreatePostForm" class="create-post text-white">Create new post</a>
+								</div>
+        					</div>
+        					<!-- Start Single Post -->
+        					<article class="blog__post d-flex flex-wrap" th:each="post : ${listPost}">
+        						<div class="thumb">
+        							<a th:href="@{/postDetail?id={id}(id=${post.id})}">
+        								<img th:src="@{../uploads/{img}(img=${post.img})}" alt="blog images">
+        							</a>
+        						</div>
+        						<div class="content">
+        							<h4><a th:href="@{/postDetail?id={id}(id=${post.id})}" th:text="${post.title}">Blog image post</a></h4>
+        							<ul class="post__meta">
+        								<li>Posts by : <a th:href="@{/findPostByUser?email={email}(email=${post.user.email})}" onmouseover="this.style.color='#e59285'" onmouseout="this.style.color='#333'" th:text="${post.user.email}"></a></li>
+        								<th:block th:if="${#request.userPrincipal != null and #strings.equals(#request.userPrincipal.name, post.user.email)}" class="post__meta">
+	        								<li class="post_separator">/</li>
+	        								<li><a th:href="@{/user/showEditPostForm?id={id}(id=${post.id})}" onmouseover="this.style.color='#e59285'" onmouseout="this.style.color='#333'">Edit</a></li>
+	        								<li class="post_separator">/</li>
+	        								<li><a th:href="@{/user/deletePost?id={id}(id=${post.id})}" class="delete-post" onmouseover="this.style.color='#e59285'" onmouseout="this.style.color='#333'">Delete</a></li>
+        								</th:block>
+        							</ul>
+        							<ul class="post__meta">
+        								<li th:text="'Created at: ' + ${#dates.format(post.createdAt, 'dd-MM-yyyy / HH:mm:ss')}"></li>
+        							</ul>
+        							<ul class="post__meta">
+        								<li>Category: <a th:href="@{/findPostByCategory?cate_id={cate_id}(cate_id=${post.cate.id})}" onmouseover="this.style.color='#e59285'" onmouseout="this.style.color='#333'" th:text="${post.cate.name}"></a></li>
+        							</ul>
+        							<div class="blog__btn">
+        								<a th:href="@{/postDetail?id={id}(id=${post.id})}">read more</a>
+        							</div>
+        						</div>
+        					</article>
+        					<!-- End Single Post -->
+        				</div>
+        				<ul class="wn__pagination">
+        					<li class="active"><a href="#">1</a></li>
+        					<li><a href="#">2</a></li>
+        					<li><a href="#">3</a></li>
+        					<li><a href="#">4</a></li>
+        					<li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+        				</ul>
+        			</div>
+        			<div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+        				<div class="wn__sidebar">
+        					<!-- Start Single Widget -->
+        					<aside class="widget search_widget">
+        						<h3 class="widget-title">Search</h3>
+        						<form action="/findPostByTitle" method="get">
+        							<div class="form-input">
+        								<input type="text" name="title" placeholder="Search...">
+        								<button><i class="fa fa-search"></i></button>
+        							</div>
+        						</form>
+        					</aside>
+        					<!-- End Single Widget -->
+							<!-- Start Single Widget -->
+        					<aside class="widget category_widget">
+        						<h3 class="widget-title">Categories</h3>
+        						<ul>
+        							<li th:each="cate : ${listCate}"><a th:href="@{/findPostByCategory?cate_id={cate_id}(cate_id=${cate.id})}" th:text="${cate.name}"></a></li>
+        						</ul>
+        					</aside>
+        					<!-- End Single Widget -->
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+        <!-- End Blog Area -->
+
+		<!-- Footer Area -->
+		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+			<div class="footer-static-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="footer__widget footer__menu">
+								<div class="ft__logo">
+									<a href="index.html">
+										<img src="images/logo/3.png" alt="logo">
+									</a>
+									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+								</div>
+								<div class="footer__content">
+									<ul class="social__net social__net--2 d-flex justify-content-center">
+										<li><a href="#"><i class="bi bi-facebook"></i></a></li>
+										<li><a href="#"><i class="bi bi-google"></i></a></li>
+										<li><a href="#"><i class="bi bi-twitter"></i></a></li>
+										<li><a href="#"><i class="bi bi-linkedin"></i></a></li>
+										<li><a href="#"><i class="bi bi-youtube"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright__wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="copyright">
+								<div class="copy__right__inner text-left">
+									<p>Copyright <i class="fa fa-copyright"></i> <a href="#">Boighor.</a> All Rights Reserved</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="payment text-right">
+								<img src="images/icons/payment.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- //Footer Area -->
+
+	</div>
+	<!-- //Main wrapper -->
+
+	<!-- JS Files -->
+	<script src="../js/vendor/jquery-3.2.1.min.js"></script>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/plugins.js"></script>
+	<script src="../js/active.js"></script>
+	<script>
+		$('.delete-post').click(function (e) {
+			e.preventDefault();
+			if(confirm('Are you sure to want to delete?')){
+				window.location.href = $(this).attr('href');
+			}
+		});
+	</script>
+	
+</body>
+
+<!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/boighor-v2/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Aug 2018 23:58:58 GMT -->
+</html>
